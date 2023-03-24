@@ -1,0 +1,48 @@
+// Select the pizza base and add it to the pizza container
+let pizzaBase = null;
+const pizzaContainer = document.getElementById("pizza");
+
+document.querySelectorAll("#base-options li").forEach((base) => {
+  base.addEventListener("dragstart", (event) => {
+    event.dataTransfer.setData("text/plain", event.target.id);
+  });
+  base.addEventListener("dragend", (event) => {
+    event.dataTransfer.clearData();
+  });
+  base.addEventListener("click", (event) => {
+    pizzaBase = event.target.id;
+    pizzaContainer.classList.add(pizzaBase);
+  });
+});
+
+// Add toppings to the pizza
+const toppings = [];
+
+document.querySelectorAll("#topping-options li").forEach((topping) => {
+  topping.addEventListener("dragstart", (event) => {
+    event.dataTransfer.setData("text/plain", event.target.id);
+  });
+  topping.addEventListener("dragend", (event) => {
+    event.dataTransfer.clearData();
+  });
+});
+
+pizzaContainer.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
+
+pizzaContainer.addEventListener("drop", (event) => {
+  event.preventDefault();
+  const toppingId = event.dataTransfer.getData("text/plain");
+  const topping = document.getElementById(toppingId);
+  toppings.push(toppingId);
+  pizzaContainer.style.backgroundImage = `url("pizza-${pizzaBase}-${toppings.join("-")}.jpg")`;
+});
+
+// Finalize the pizza
+const finalizeButton = document.getElementById("finalize-pizza");
+
+finalizeButton.addEventListener("click", (event) => {
+  pizzaContainer.style.backgroundImage = `url("pizza-${pizzaBase}-${toppings.join("-")}.jpg")`;
+  finalizeButton.style.display = "none";
+});
