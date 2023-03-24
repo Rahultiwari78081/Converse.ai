@@ -1,0 +1,28 @@
+.pizza-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+#pizza {
+  width: 300px;
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.options {
+  margin-left: 50px;
+}
+
+#base-options li, #topping-options li {
+  cursor: move;
+  margin-bottom: 10px;
+}
+
+#finalize-pizza {
+  display: block;
+  margin: 20px auto;
+}
